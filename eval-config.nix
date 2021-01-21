@@ -22,11 +22,11 @@ let
     };
   };
 
-  eval = lib.evalModules (builtins.removeAttrs args ["inputs"] // {
+  eval = lib.evalModules {
     modules = modules ++ [ inputsModule pkgsModule ] ++ baseModules;
     args = { inherit baseModules modules; };
     specialArgs = { modulesPath = builtins.toString ./modules; } // specialArgs;
-  });
+  };
 
   # Was moved in nixpkgs #82751, so both need to be handled here until 20.03 is deprecated.
   # https://github.com/NixOS/nixpkgs/commits/dcdd232939232d04c1132b4cc242dd3dac44be8c
